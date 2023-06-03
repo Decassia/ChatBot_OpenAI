@@ -73,14 +73,15 @@
          </div>
     {% else %}
          <div class="card-header bg-primary text-white" ><a style="color: aliceblue" href="login">Login</a>
-               <a style="color: aliceblue href="register">Register</a></div>
+               <a style="color: aliceblue href="register">Register</a>
+         </div>
     {% endif %}
 
     <div class="card-body messages-box">
       
       <ul class="list-unstyled messages-list">
-        
-        <li class="message received">
+
+        <!--<li class="message received">
           <div class="message-text">
             <div class="message-sender">
               <b>AI Chatbot</b>
@@ -89,7 +90,33 @@
               Hi, {{ user.username }}   I am your AI Chatbot, you can ask me anything.
             </div>
           </div>
-        </li>
+        </li>-->
+          {% for chat in chats %}
+              {% if chat.user == request.user %}
+                  <li class="message received">
+                      <div class="message-text">
+                        <div class="message-sender">
+                          <b>AI Chatbot</b>
+                        </div>
+                        <div class="message-content">
+                           {{ chat.message }}
+                        </div>
+                      </div>
+                    </li>
+
+                    <li class="message received">
+                      <div class="message-text">
+                        <div class="message-sender">
+                          <b>AI Chatbot</b>
+                        </div>
+                        <div class="message-content">
+                           {{ chat.response }}
+                        </div>
+                      </div>
+                    </li>
+              {% endif %}
+
+          {% endfor %}
       </ul>
       
     </div>
