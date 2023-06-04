@@ -9,11 +9,11 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 # sudo lsof -t -i tcp:8000 | xargs kill -9
 # Create your views here.
-openai_api_key = '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'
+openai_api_key = 'generate your key'
 openai.api_key = openai_api_key
 
-
-def ask_openai(message):
+# using text-davinci for the generate the response message - OpenAi
+'''def ask_openai(message):
     response = openai.Completion.create(
         model="text-davinci-003",
         prompt=message,
@@ -25,6 +25,22 @@ def ask_openai(message):
     # print(response)
     answer = response.choices[0].text.strip()
     print(answer)
+    return answer'''
+
+
+# using gpt-3.5-turbo and ChatCompletion
+
+def ask_openai(message):
+    response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": message}
+        ]
+    )
+    #print(response)
+    answer = response.choices[0].message.content.strip()
+    #print(answer)
     return answer
 
 
